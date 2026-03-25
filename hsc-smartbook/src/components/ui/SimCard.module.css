@@ -1,0 +1,3 @@
+.simCard { border: 1px solid #e5e7eb; border-radius: 0.75rem; overflow: hidden; background: white; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+.simCard h3 { padding: 1rem; margin: 0; background: #f9fafb; border-bottom: 1px solid #e5e7eb; }
+.content { padding: 1.5rem; }

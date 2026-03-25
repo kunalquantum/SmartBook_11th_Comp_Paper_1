@@ -1,0 +1,2 @@
+.field { margin-bottom: 1rem; display: flex; flex-direction: column; gap: 0.5rem; }
+.field input, .field select { padding: 0.5rem; border-radius: 0.25rem; border: 1px solid #ccc; }

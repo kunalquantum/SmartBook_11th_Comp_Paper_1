@@ -1,0 +1,6 @@
+/* Placeholder styles for UI components */
+.badge { padding: 0.25rem 0.5rem; border-radius: 9999px; font-size: 0.75rem; }
+.button { padding: 0.5rem 1rem; border-radius: 0.375rem; cursor: pointer; }
+.field { margin-bottom: 1rem; }
+.resultBox { padding: 1rem; border: 1px solid #ccc; }
+.simCard { border: 1px solid #ddd; border-radius: 0.5rem; padding: 1rem; }

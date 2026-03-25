@@ -1,0 +1,4 @@
+.resultBox { padding: 1rem; background: #f3f4f6; border-radius: 0.5rem; }
+.stepList { list-style: decimal; padding-left: 1.5rem; }
+.infoBox { padding: 1rem; border-left: 4px solid var(--primary); background: #ebf5ff; }
+.monoBlock { font-family: monospace; background: #1e293b; color: #f8fafc; padding: 1rem; border-radius: 0.25rem; overflow-x: auto; }
