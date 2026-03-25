@@ -1,89 +1,96 @@
-// ─────────────────────────────────────────────
-//  UNIT META  — colours, ids, labels, emojis
-// ─────────────────────────────────────────────
-export const UNIT_META = [
-  {
-    id: 'numbers',
-    num: '01',
-    label: 'Number Systems',
-    emoji: '🔢',
-    color: 'var(--c1)',
-    hex: '#00e5ff',
-    desc: 'Binary, Octal, Hexadecimal conversions, arithmetic & coding systems.',
-  },
-  {
-    id: 'program',
-    num: '02',
-    label: 'Program Analysis',
-    emoji: '📐',
-    color: 'var(--c2)',
-    hex: '#ff7b54',
-    desc: 'Dev cycle, flowcharts, algorithms, searching & sorting.',
-  },
-  {
-    id: 'cpp',
-    num: '03',
-    label: 'Introduction to C++',
-    emoji: '⚙️',
-    color: 'var(--c3)',
-    hex: '#a78bfa',
-    desc: 'Data types, operators, control flow, functions & pointers.',
-  },
-  {
-    id: 'vb',
-    num: '04',
-    label: 'Visual Basic',
-    emoji: '🖼️',
-    color: 'var(--c4)',
-    hex: '#34d399',
-    desc: 'IDE components, variables, event-driven programming & loops.',
-  },
-  {
-    id: 'networking',
-    num: '05',
-    label: 'Networking & Internet',
-    emoji: '🌐',
-    color: 'var(--c5)',
-    hex: '#fbbf24',
-    desc: 'LAN/WAN, network types, protocols & internet applications.',
-  },
-];
+import { TOPIC_META } from '../../data/units';
+import styles from './UnitPage.module.css';
 
-// ─────────────────────────────────────────────
-//  TOPIC REGISTRY  — per unit
-// ─────────────────────────────────────────────
-//  Each entry = { id, label, SimulatorComponent (lazy-loaded in routes) }
-//  Components are injected at the router level to keep data pure.
+// Feature simulators – Unit 1
+import BaseConverter from './unit1-numbers/BaseConverter';
+import BinaryArithmetic from './unit1-numbers/BinaryArithmetic';
+import ComplementArithmetic from './unit1-numbers/ComplementArithmetic';
+import CodingSystems from './unit1-numbers/CodingSystems';
+// Unit 2
+import DevCycle from './unit2-program/DevCycle';
+import AlgorithmFlowchart from './unit2-program/AlgorithmFlowchart';
+import LinearSearch from './unit2-program/LinearSearch';
+import BubbleSort from './unit2-program/BubbleSort';
+// Unit 3
+import DataTypes from './unit3-cpp/DataTypes';
+import Operators from './unit3-cpp/Operators';
+import ControlFlow from './unit3-cpp/ControlFlow';
+import Pointers from './unit3-cpp/Pointers';
+// Unit 4
+import VBIde from './unit4-vb/VBIde';
+import VBVariables from './unit4-vb/VBVariables';
+import VBEvents from './unit4-vb/VBEvents';
+import VBLoops from './unit4-vb/VBLoops';
+// Unit 5
+import NetworkTypes from './unit5-networking/NetworkTypes';
+import NetworkTopology from './unit5-networking/NetworkTopology';
+import Protocols from './unit5-networking/Protocols';
+import InternetApps from './unit5-networking/InternetApps';
 
-export const TOPIC_META = {
-  numbers: [
-    { id: 'converter', label: 'Base Converter' },
-    { id: 'arithmetic', label: 'Binary Arithmetic' },
-    { id: 'complement', label: 'Complement Arithmetic' },
-    { id: 'coding', label: 'Coding Systems' },
-  ],
-  program: [
-    { id: 'devcycle', label: 'Development Cycle' },
-    { id: 'flowchart', label: 'Algorithm & Flowchart' },
-    { id: 'linearsearch', label: 'Linear Search' },
-    { id: 'bubblesort', label: 'Bubble Sort' },
-  ],
-  cpp: [
-    { id: 'datatypes', label: 'Data Types' },
-    { id: 'operators', label: 'Operators Playground' },
-    { id: 'controlflow', label: 'Control Flow' },
-    { id: 'pointers', label: 'Functions & Pointers' },
-  ],
-  vb: [
-    { id: 'ide', label: 'IDE Components' },
-    { id: 'variables', label: 'Variables & Constants' },
-    { id: 'events', label: 'Event-Driven Programming' },
-    { id: 'loops', label: 'Loop Statements' },
-  ],
-  networking: [
-    { id: 'nettypes', label: 'LAN vs WAN' },
-    { id: 'topology', label: 'Network Topologies' },
-    { id: 'protocols', label: 'Protocols & Ports' },
-    { id: 'internetapps', label: 'Internet Applications' },
-  ],
+const SIMULATORS = {
+  // Unit 1
+  converter: BaseConverter,
+  arithmetic: BinaryArithmetic,
+  complement: ComplementArithmetic,
+  coding: CodingSystems,
+  // Unit 2
+  devcycle: DevCycle,
+  flowchart: AlgorithmFlowchart,
+  linearsearch: LinearSearch,
+  bubblesort: BubbleSort,
+  // Unit 3
+  datatypes: DataTypes,
+  operators: Operators,
+  controlflow: ControlFlow,
+  pointers: Pointers,
+  // Unit 4
+  ide: VBIde,
+  variables: VBVariables,
+  events: VBEvents,
+  loops: VBLoops,
+  // Unit 5
+  nettypes: NetworkTypes,
+  topology: NetworkTopology,
+  protocols: Protocols,
+  internetapps: InternetApps,
 };
+
+export default function UnitPage({ unitMeta, activeTopic, onTopicSelect }) {
+  const topics = TOPIC_META[unitMeta.id] ?? [];
+  const currentId = activeTopic ?? topics[0]?.id;
+  const Sim = SIMULATORS[currentId];
+
+  return (
+    <div className={styles.page}>
+      {/* Unit header */}
+      <div className={styles.header} style={{ '--uc': unitMeta.hex }}>
+        <p className={styles.unitNum}>Unit {unitMeta.num}</p>
+        <h2 className={styles.unitTitle}>{unitMeta.emoji} {unitMeta.label}</h2>
+        <p className={styles.unitDesc}>{unitMeta.desc}</p>
+
+        {/* Topic tab bar */}
+        <div className={styles.tabBar}>
+          {topics.map(t => (
+            <button
+              key={t.id}
+              className={`${styles.tab} ${currentId === t.id ? styles.tabActive : ''}`}
+              style={{ '--uc': unitMeta.hex }}
+              onClick={() => onTopicSelect(t.id)}
+            >
+              {t.label}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Simulator area */}
+      <div className={styles.body}>
+        {Sim ? (
+          <Sim color={unitMeta.hex} />
+        ) : (
+          <p style={{ color: 'var(--text2)' }}>Simulator not found for "{currentId}"</p>
+        )}
+      </div>
+    </div>
+  );
+}
